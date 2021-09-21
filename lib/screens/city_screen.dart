@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:know_weather/utilities/constants.dart';
 
 class CityScreen extends StatefulWidget {
   @override
@@ -7,7 +6,8 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
-  late String cityName="";
+  late String cityName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,8 +16,7 @@ class _CityScreenState extends State<CityScreen> {
             children: <Widget>[
               Align(
                 alignment: Alignment.topLeft,
-                // ignore: deprecated_member_use
-                child: FlatButton(
+                child: RawMaterialButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -30,31 +29,21 @@ class _CityScreenState extends State<CityScreen> {
               Container(
                 padding: EdgeInsets.all(20.0),
                 child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    icon: Icon(Icons.location_city),
-                    hintText: 'Enter the City',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10),),
-                      borderSide: BorderSide.none,
-                    ),
+                  style: TextStyle(
+                    color: Colors.black,
                   ),
-                  onChanged: (value){
-                    cityName=value;
+                  onChanged: (value) {
+                    cityName = value;
                   },
                 ),
               ),
-              // ignore: deprecated_member_use
-              FlatButton(
+              RawMaterialButton(
                 onPressed: () {
-                  Navigator.pop(context,cityName);
+                  Navigator.pop(context, cityName);
                 },
                 child: Text(
                   'Get Weather',
-                  style: kButtonTextStyle,
+
                 ),
               ),
             ],

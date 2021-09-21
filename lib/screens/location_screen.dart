@@ -28,33 +28,29 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI( widget.locationWeather);
   }
 
-  void updateUI(dynamic weatherData){
 
-    if(weatherData==null){
-      setState(() {
+  void updateUI(dynamic weatherData) {
+    setState(() {
+      if (weatherData == null) {
         temperature = 0;
         weatherIcon = 'Error';
-        weatherMessage='Unable to get weather data';
-        cityName ='';
+        weatherMessage = 'Unable to get weather data';
+        cityName = '';
         return;
-      });
-    }
-    double temp = weatherData['main']['temp'];
-    temperature = temp.toInt();
-    print(temperature);
-    // condition = weatherData['weather'][0]['id'];
-    var condition = weatherData['weather'][0]['id'];
-    weatherIcon = weatherModel.getWeatherIcon(condition);
-    weatherMessage=weatherModel.getMessage(temperature);
-    cityName = weatherData['name'];
+      }
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+      var condition = weatherData['weather'][0]['id'];
+      weatherIcon = weatherModel.getWeatherIcon(condition);
+      weatherMessage = weatherModel.getMessage(temperature);
+      cityName = weatherData['name'];
+    });
   }
-
   // var lat=locationWeather;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: SafeArea(
+      body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -62,7 +58,6 @@ class _LocationScreenState extends State<LocationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  // ignore: deprecated_member_use
                   FlatButton(
                     onPressed: () async {
                       var weatherData = await weatherModel.getLocationWeather();
@@ -73,18 +68,20 @@ class _LocationScreenState extends State<LocationScreen> {
                       size: 50.0,
                     ),
                   ),
-                  // ignore: deprecated_member_use
                   FlatButton(
-                    onPressed: () async{
-                      var typedName=await Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return CityScreen();
-                      }));
-                      if(typedName==null){
-                        throw  "something went wrong";
-                      }
-                      else{
-                        var weatherData=await weatherModel.getCityWeather(typedName);
-                        updateUI(weatherData); ;
+                    onPressed: () async {
+                      var typedName = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CityScreen();
+                          },
+                        ),
+                      );
+                      if (typedName != null) {
+                        var weatherData =
+                        await weatherModel.getCityWeather(typedName);
+                        updateUI(weatherData);
                       }
                     },
                     child: Icon(
@@ -103,7 +100,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '$weatherIcon',
+                      weatherIcon!,
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -112,7 +109,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "$weatherMessage in $cityName",
+                  '$weatherMessage in $cityName',
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
@@ -120,7 +117,6 @@ class _LocationScreenState extends State<LocationScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 }
