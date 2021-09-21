@@ -37,12 +37,15 @@ class _CityScreenState extends State<CityScreen> {
                   },
                 ),
               ),
-              RawMaterialButton(
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all( Colors.blue,),
+                ),
                 onPressed: () {
                   Navigator.pop(context, cityName);
                 },
                 child: Text(
-                  'Get Weather',
+                  'Get Weather',style: TextStyle(color: Colors.black),
 
                 ),
               ),
