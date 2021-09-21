@@ -30,7 +30,7 @@ class _CityScreenState extends State<CityScreen> {
                 padding: EdgeInsets.all(20.0),
                 child: TextField(
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                   onChanged: (value) {
                     cityName = value;
@@ -45,7 +45,7 @@ class _CityScreenState extends State<CityScreen> {
                   Navigator.pop(context, cityName);
                 },
                 child: Text(
-                  'Get Weather',style: TextStyle(color: Colors.black),
+                  'Get Weather',style: TextStyle(color: Colors.white),
 
                 ),
               ),
